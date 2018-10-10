@@ -20,7 +20,7 @@ module.exports = sails => {
             // If custom log function is specified, use it for SQL logging or use sails logger of defined level
             if (typeof cls_s === 'string' && cls_s !== '') {
                 //Sequelize.useCLS(require('continuation-local-storage').createNamespace(cls));
-                const ns = cls.createNamespace('transaction-namespace');
+                const ns = cls.createNamespace(cls_s);
                 clsBluebird(ns, Promise);
                 Sequelize.useCLS(ns);
             }
