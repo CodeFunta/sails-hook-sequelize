@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "continuation-local-storage": "^3.2.1",
+    "bluebird": "^3.5.0",
     "cls-bluebird": "^2.1.0",
     "cls-hooked": "^4.2.2",
     "sequelize": "^5.0.0-beta.12"
