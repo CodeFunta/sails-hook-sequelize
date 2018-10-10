@@ -1,6 +1,10 @@
 module.exports = sails => {
     const Sequelize = require('sequelize');
-
+    const cls_h = require('cls-hooked');
+    var Promise = require('bluebird');
+    var clsBluebird = require('cls-bluebird');
+    
+    clsBluebird( namespace );
     // keep a ref to the original sails model loader function
     const originalLoadModels = sails.modules.loadModels;
 
@@ -15,7 +19,9 @@ module.exports = sails => {
             const cls = sails.config[this.configKey].clsNamespace;
             // If custom log function is specified, use it for SQL logging or use sails logger of defined level
             if (typeof cls === 'string' && cls !== '') {
-                Sequelize.useCLS(require('continuation-local-storage').createNamespace(cls));
+                //Sequelize.useCLS(require('continuation-local-storage').createNamespace(cls));
+                let namespace = cls_h.createNamespace(cls);
+                Sequelize.useCLS(namespace);
             }
 
             if (sails.config[this.configKey].exposeToGlobal) {
