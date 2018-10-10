@@ -22,7 +22,7 @@ module.exports = sails => {
                 //Sequelize.useCLS(require('continuation-local-storage').createNamespace(cls));
                 const ns = cls.createNamespace('transaction-namespace');
                 clsBluebird(ns, Promise);
-                Sequelize.useCLS(namespace);
+                Sequelize.useCLS(ns);
             }
 
             if (sails.config[this.configKey].exposeToGlobal) {
