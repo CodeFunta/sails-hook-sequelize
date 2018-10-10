@@ -1,8 +1,8 @@
 module.exports = sails => {
     const Sequelize = require('sequelize');
-    const Promise = require('bluebird');
-    const clsBluebird = require('cls-bluebird');
-    const cls = require('continuation-local-storage');
+    // const Promise = require('bluebird');
+    // const clsBluebird = require('cls-bluebird');
+    // const cls = require('continuation-local-storage');
     
    
     // keep a ref to the original sails model loader function
@@ -16,13 +16,10 @@ module.exports = sails => {
             }
         },
         configure () {
-            const cls_s = sails.config[this.configKey].clsNamespace;
+            const cls = sails.config[this.configKey].clsNamespace;
             // If custom log function is specified, use it for SQL logging or use sails logger of defined level
-            if (typeof cls_s === 'string' && cls_s !== '') {
-                //Sequelize.useCLS(require('continuation-local-storage').createNamespace(cls));
-                const ns = cls.createNamespace(cls_s);
-                clsBluebird(ns, Promise);
-                Sequelize.useCLS(ns);
+            if (typeof cls === 'string' && cls !== '') {
+                Sequelize.useCLS(require('continuation-local-storage').createNamespace(cls));
             }
 
             if (sails.config[this.configKey].exposeToGlobal) {
