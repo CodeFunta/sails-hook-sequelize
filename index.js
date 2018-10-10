@@ -4,7 +4,7 @@ module.exports = sails => {
     var Promise = require('bluebird');
     var clsBluebird = require('cls-bluebird');
     
-    clsBluebird( namespace );
+   
     // keep a ref to the original sails model loader function
     const originalLoadModels = sails.modules.loadModels;
 
@@ -21,6 +21,7 @@ module.exports = sails => {
             if (typeof cls === 'string' && cls !== '') {
                 //Sequelize.useCLS(require('continuation-local-storage').createNamespace(cls));
                 let namespace = cls_h.createNamespace(cls);
+                clsBluebird( namespace );
                 Sequelize.useCLS(namespace);
             }
 
