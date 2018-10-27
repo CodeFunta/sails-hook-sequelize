@@ -279,7 +279,16 @@ module.exports = sails => {
                         }));
 
                     } else {
-                        syncTasks.push(connections[connectionName].sync({ force: forceSyncFlag, alter: alterFlag }));
+                        for (modelName in models) {
+                            modelDef = models[modelName];
+                            if (_.isUndefined(modelDef.options.alter)) {
+                                modelDef.options.alter = alterFlag;
+                            }
+                            if (_.isUndefined(modelDef.options.force)) {
+                                modelDef.options.force = forceSyncFlag;
+                            }
+                        }
+                        syncTasks.push(connections[connectionName].sync());
                     }
                 }
 
