@@ -286,8 +286,8 @@ module.exports = sails => {
                         }));
 
                     } else {
-                        for (modelName in models) {
-                            modelDef = models[modelName];
+                        for (modelName in sails.models) {
+                            modelDef = sails.models[modelName];
                             if (_.isUndefined(modelDef.options.alter)) {
                                 modelDef.options.alter = alterFlag;
                             }
