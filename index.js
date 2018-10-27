@@ -268,6 +268,12 @@ module.exports = sails => {
                             for (modelName in models) {
                                 modelDef = models[modelName];
                                 tableSchema = modelDef.options.schema || '';
+                                if (_.isUndefined(modelDef.options.alter)) {
+                                    modelDef.options.alter = alterFlag;
+                                }
+                                if (_.isUndefined(modelDef.options.force)) {
+                                    modelDef.options.force = forceSyncFlag;
+                                }
 
                                 if (tableSchema !== '' && schemas.indexOf(tableSchema) < 0) { // there is no schema in db for model
                                     connections[connectionName].createSchema(tableSchema);
@@ -275,7 +281,8 @@ module.exports = sails => {
                                 }
                             }
 
-                            return connections[connectionName].sync({ force: forceSyncFlag, alter: alterFlag });
+                            //return connections[connectionName].sync({ force: forceSyncFlag, alter: alterFlag });
+                            return connections[connectionName].sync();
                         }));
 
                     } else {
